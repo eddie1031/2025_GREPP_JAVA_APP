@@ -1,5 +1,6 @@
 package io.eddie.sys;
 
+import io.eddie.controller.BoardController;
 import io.eddie.controller.PostController;
 
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class Application {
     public void run() {
 
         PostController postController = new PostController();
+        BoardController boardController = new BoardController();
 
         while( programStatus ) {
 
@@ -41,6 +43,9 @@ public class Application {
             switch ( request.getControllerCode() ) {
                 case "posts":
                     postController.requestHandle(request);
+                    break;
+                case "boards":
+                    boardController.requestHandle(request);
                     break;
                 default:
                     System.out.println("존재하지 않는 명령어");

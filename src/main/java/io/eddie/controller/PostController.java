@@ -109,6 +109,8 @@ public class PostController {
                 System.out.println(savedPostId + "번 게시물 작성을 완료했습니다!");
 
                 break;
+            default:
+                System.out.println("존재하지 않는 명령어 입니다!");
         }
     }
 

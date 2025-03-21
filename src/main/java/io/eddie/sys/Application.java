@@ -38,7 +38,13 @@ public class Application {
                 continue;
             }
 
-            System.out.println("명령 통과!");
+            switch ( request.getControllerCode() ) {
+                case "posts":
+                    postController.requestHandle(request);
+                    break;
+                default:
+                    System.out.println("존재하지 않는 명령어");
+            }
 
         }
     }

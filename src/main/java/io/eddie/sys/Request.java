@@ -36,5 +36,9 @@ public class Request {
         return this.parser.getTarget();
     }
 
+    public String getControllerCode() {
+        return this.parser.getControllerCode();
+    }
+
 
 }

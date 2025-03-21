@@ -1,18 +1,16 @@
 package io.eddie.controller;
 
 import io.eddie.data.Post;
+import io.eddie.service.PostService;
 import io.eddie.sys.Request;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class PostController {
 
     private Scanner sc = new Scanner(System.in);
-    private int sequence = 0;
-    private List<Post> postList = new ArrayList<>();
+
+    private PostService postService = new PostService();
 
     public void requestHandle(Request request) {
 
@@ -25,13 +23,8 @@ public class PostController {
                     String targetId = sc.nextLine().trim();
 
                     int postId = Integer.parseInt(targetId);
-
-                    Post findPost = postList.get(postId - 1);
-
-                    if ( findPost != null ) {
-                        postList.set(postId - 1, null);
-                        System.out.println("성공적으로 삭제 되었습니다!");
-                    }
+                    postService.removeById(postId);
+                    System.out.println("성공적으로 삭제 되었습니다!");
 
                 } catch ( NullPointerException e ) {
                     System.out.println("해당 게시물은 존재하지 않습니다!");
@@ -54,17 +47,13 @@ public class PostController {
 
                     int postId = Integer.parseInt(targetId);
 
-                    Post findPost = postList.get(postId - 1);
-
                     System.out.print("제목 : ");
                     String updateTitle = sc.nextLine().trim();
 
                     System.out.print("내용 : ");
                     String updateBody = sc.nextLine().trim();
 
-                    findPost.setTitle(updateTitle);
-                    findPost.setBody(updateBody);
-                    findPost.setUpdatedAt(LocalDate.now());
+                    postService.update(postId, updateTitle, updateBody);
 
                     System.out.println("게시물 수정이 완료되었습니다!");
 
@@ -88,7 +77,7 @@ public class PostController {
                     String targetIdStr = sc.nextLine().trim();
                     int targetId = Integer.parseInt(targetIdStr);
 
-                    Post findPost = postList.get(targetId - 1);
+                    Post findPost = postService.getById(targetId);
 
                     System.out.println("게시물 번호 : " + findPost.getId());
                     System.out.println("게시물 제목 : " + findPost.getTitle());
@@ -115,10 +104,9 @@ public class PostController {
                 System.out.print("내용 : ");
                 String body = sc.nextLine().trim();
 
-                Post newPost = new Post(++sequence, title, body);
-                postList.add(newPost);
+                int savedPostId = postService.save(title, body);
 
-                System.out.println(newPost.getId() + "번 게시물 작성을 완료했습니다!");
+                System.out.println(savedPostId + "번 게시물 작성을 완료했습니다!");
 
                 break;
         }

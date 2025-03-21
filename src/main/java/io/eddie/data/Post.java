@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class Post {
 
-
     private int id;
 
     private String title;

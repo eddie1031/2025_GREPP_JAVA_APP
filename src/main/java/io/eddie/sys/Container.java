@@ -32,8 +32,8 @@ public class Container {
         boardService = new BoardService(boardRepository);
         postService = new PostService(postRepository);
 
-        boardController = new BoardController(boardService);
-        postController = new PostController(postService, boardService);
+        boardController = new BoardController(sc, boardService);
+        postController = new PostController(sc, postService, boardService);
 
     }
 

@@ -23,6 +23,16 @@ public class Post {
                 '}';
     }
 
+    public void stdout() {
+        System.out.println("게시물 상세 정보 === ");
+        System.out.println("게시물 번호 : " + this.getId());
+        System.out.println("게시물 제목 : " + this.getTitle());
+        System.out.println("게시물 내용 : " + this.getBody());
+        System.out.println("게시물 생성일 : " + this.getCreatedAt());
+        System.out.println("게시물 수정일 : " + this.getUpdatedAt());
+    }
+
+
     public Post(int id, String title, String body) {
         this.id = id;
         this.title = title;

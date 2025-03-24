@@ -26,6 +26,14 @@ public class Board {
 
     }
 
+    public void stdout() {
+        System.out.println(" 글 번호 / 글 제목 / 작성일 ");
+        for (Post post : postList) {
+            System.out.printf("%s / %s / %s \n", post.getId(), post.getTitle(), post.getCreatedAt());
+        }
+    }
+
+
     public int getId() {
         return id;
     }

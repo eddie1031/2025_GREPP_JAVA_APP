@@ -1,6 +1,7 @@
 package io.eddie.sys;
 
 import io.eddie.controller.BoardController;
+import io.eddie.controller.Controller;
 import io.eddie.controller.PostController;
 import io.eddie.repository.BoardRepository;
 import io.eddie.repository.PostRepository;
@@ -11,9 +12,9 @@ import java.util.Scanner;
 
 public class Application {
 
-    private String domain;
+    private final Scanner sc = Container.sc;
 
-    private Scanner sc = new Scanner(System.in);
+    private String domain;
     private boolean programStatus = true;
 
     public Application(String domain) {
@@ -21,15 +22,6 @@ public class Application {
     }
 
     public void run() {
-
-        BoardRepository boardRepository = new BoardRepository();
-        PostRepository postRepository = new PostRepository();
-
-        BoardService boardService = new BoardService(boardRepository);
-        PostService postService = new PostService(postRepository);
-
-        BoardController boardController = new BoardController(boardService);
-        PostController postController = new PostController(postService, boardService);
 
         while( programStatus ) {
 
@@ -50,18 +42,30 @@ public class Application {
                 continue;
             }
 
-            switch ( request.getControllerCode() ) {
-                case "posts":
-                    postController.requestHandle(request);
-                    break;
-                case "boards":
-                    boardController.requestHandle(request);
-                    break;
-                default:
-                    System.out.println("존재하지 않는 명령어");
+            Controller controller = getController(request.getControllerCode());
+
+            if ( controller != null ) {
+                controller.requestHandle(request);
+            } else {
+                System.out.println("잘못된 요청입니다.");
             }
+
 
         }
     }
+
+    public Controller getController(String controllerCode) {
+
+        switch ( controllerCode ) {
+            case "posts":
+                return Container.postController;
+            case "boards":
+                return Container.boardController;
+            default:
+                return null;
+        }
+
+    }
+
 
 }

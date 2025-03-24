@@ -32,6 +32,10 @@ public class Request {
 
     }
 
+    public boolean hasParam(String key) {
+        return parameters.get(key) != null;
+    }
+
     public String getTarget() {
         return this.parser.getTarget();
     }

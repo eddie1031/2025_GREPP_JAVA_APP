@@ -8,11 +8,17 @@ import io.eddie.sys.Request;
 import java.util.List;
 import java.util.Scanner;
 
-public class BoardController {
+public class BoardController implements Controller{
 
     private Scanner sc = new Scanner(System.in);
-    private BoardService boardService = new BoardService();
+//    private BoardService boardService = new BoardService();
+    private final BoardService boardService;
 
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
+
+    @Override
     public void requestHandle(Request request) {
 
         switch ( request.getTarget() ) {

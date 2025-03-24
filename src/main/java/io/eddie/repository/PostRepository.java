@@ -11,11 +11,11 @@ public class PostRepository {
     private int sequence = 0;
     private List<Post> postList = new ArrayList<>();
 
-    public int save(String title, String body) {
+    public Post save(String title, String body) {
         Post newPost = new Post(++sequence, title, body);
         postList.add(newPost);
 
-        return newPost.getId();
+        return newPost;
     }
 
     public Post getById(int postId) {

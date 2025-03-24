@@ -9,9 +9,14 @@ import java.util.List;
 
 public class PostService {
 
-    private PostRepository postRepository = new PostRepository();
+//    private PostRepository postRepository = new PostRepository();
+    private final PostRepository postRepository;
 
-    public int save(String title, String body) {
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
+    public Post save(String title, String body) {
         return postRepository.save(title, body);
     }
 

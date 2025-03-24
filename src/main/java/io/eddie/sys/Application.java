@@ -2,6 +2,10 @@ package io.eddie.sys;
 
 import io.eddie.controller.BoardController;
 import io.eddie.controller.PostController;
+import io.eddie.repository.BoardRepository;
+import io.eddie.repository.PostRepository;
+import io.eddie.service.BoardService;
+import io.eddie.service.PostService;
 
 import java.util.Scanner;
 
@@ -18,8 +22,14 @@ public class Application {
 
     public void run() {
 
-        PostController postController = new PostController();
-        BoardController boardController = new BoardController();
+        BoardRepository boardRepository = new BoardRepository();
+        PostRepository postRepository = new PostRepository();
+
+        BoardService boardService = new BoardService(boardRepository);
+        PostService postService = new PostService(postRepository);
+
+        BoardController boardController = new BoardController(boardService);
+        PostController postController = new PostController(postService, boardService);
 
         while( programStatus ) {
 

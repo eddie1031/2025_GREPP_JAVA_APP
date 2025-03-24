@@ -2,7 +2,7 @@ package io.eddie.data;
 
 import java.time.LocalDate;
 
-public class Post {
+public class Post extends BaseEntity {
 
     private int id;
 

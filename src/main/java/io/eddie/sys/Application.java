@@ -1,12 +1,6 @@
 package io.eddie.sys;
 
-import io.eddie.controller.BoardController;
 import io.eddie.controller.Controller;
-import io.eddie.controller.PostController;
-import io.eddie.repository.BoardRepository;
-import io.eddie.repository.PostRepository;
-import io.eddie.service.BoardService;
-import io.eddie.service.PostService;
 
 import java.util.Scanner;
 
@@ -61,6 +55,8 @@ public class Application {
                 return Container.postController;
             case "boards":
                 return Container.boardController;
+            case "accounts":
+                return Container.accountController;
             default:
                 return null;
         }

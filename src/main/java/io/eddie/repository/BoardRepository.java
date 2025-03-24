@@ -12,14 +12,14 @@ public class BoardRepository {
     private int sequence = 0;
     private List<Board> boardList = new ArrayList<>();
 
-    public int save(String boardName, String description) {
+    public Board save(String boardName, String description) {
 
         ++sequence;
 
         Board newBoard = new Board(sequence, boardName, description);
         boardList.add(newBoard);
 
-        return newBoard.getId();
+        return newBoard;
 
     }
 

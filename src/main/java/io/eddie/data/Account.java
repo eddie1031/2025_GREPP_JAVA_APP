@@ -1,6 +1,8 @@
 package io.eddie.data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Account extends BaseEntity {
 
@@ -14,15 +16,20 @@ public class Account extends BaseEntity {
     private String name;
     private String email;
 
+    private AuthType authType;
+
+    private List<Post> postList = new ArrayList<>();
+
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-    public Account(int id, String username, String password, String name, String email) {
+    public Account(int id, String username, String password, String name, String email, AuthType authType) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.authType = authType;
         this.createdAt = LocalDate.now();
         this.updatedAt = LocalDate.now();
     }
@@ -33,9 +40,13 @@ public class Account extends BaseEntity {
         System.out.println(" === 회원 정보 === ");
         System.out.println("회원 계정 : " + username);
         System.out.println("회원 이메일 : " + email);
-
+        System.out.println("회원 등급 : "+ this.authType.toString());
         System.out.println("회원 가입일 : " + createdAt);
 
+    }
+
+    public AuthType getAuthType() {
+        return authType;
     }
 
     public int getId() {
@@ -64,6 +75,10 @@ public class Account extends BaseEntity {
 
     public String getName() {
         return name;
+    }
+
+    public List<Post> getPostList() {
+        return postList;
     }
 
     public void setName(String name) {

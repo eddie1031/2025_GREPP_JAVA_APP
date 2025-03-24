@@ -1,5 +1,6 @@
 package io.eddie.sys;
 
+import io.eddie.config.PostConstructor;
 import io.eddie.controller.AccountController;
 import io.eddie.controller.BoardController;
 import io.eddie.controller.PostController;
@@ -16,6 +17,8 @@ public class Container {
 
     public static Scanner sc;
 
+    public static Session session;
+
     public static PostRepository postRepository;
     public static BoardRepository boardRepository;
     public static AccountRepository accountRepository;
@@ -28,21 +31,27 @@ public class Container {
     public static BoardController boardController;
     public static AccountController accountController;
 
+    public static PostConstructor postConstructor;
+
     static {
 
         sc = new Scanner(System.in);
 
+        session = new Session();
+
+        accountRepository = new AccountRepository();
         boardRepository = new BoardRepository();
         postRepository = new PostRepository();
-        accountRepository = new AccountRepository();
 
-        boardService = new BoardService(boardRepository);
-        postService = new PostService(postRepository);
         accountService = new AccountService(accountRepository);
+        boardService = new BoardService(boardRepository);
+        postService = new PostService(postRepository, accountService);
 
+        accountController = new AccountController(sc, accountService);
         boardController = new BoardController(sc, boardService);
         postController = new PostController(sc, postService, boardService);
-        accountController = new AccountController(sc, accountService);
+
+        postConstructor = new PostConstructor();
 
     }
 

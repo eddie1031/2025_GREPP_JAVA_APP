@@ -6,11 +6,6 @@ import io.eddie.repository.BoardRepository;
 
 public class BoardService {
 
-    // 1. 싱글톤 패턴
-    // 2. 각자의 인스턴스가 싱글톤 객체를 나누어 받아야 된다
-
-//    private BoardRepository boardRepository = new BoardRepository();
-
     private final BoardRepository boardRepository;
 
     public BoardService(BoardRepository boardRepository) {
@@ -18,7 +13,7 @@ public class BoardService {
     }
 
     public int createBoard(String boardName, String description) {
-        return boardRepository.save(boardName, description);
+        return boardRepository.save(boardName, description).getId();
     }
 
     public Board getBoardById(int boardId) {

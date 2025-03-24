@@ -1,23 +1,25 @@
 package io.eddie.service;
 
+import io.eddie.data.Account;
+import io.eddie.data.Board;
 import io.eddie.data.Post;
 import io.eddie.repository.PostRepository;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 public class PostService {
 
-//    private PostRepository postRepository = new PostRepository();
+    private final AccountService accountService;
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, AccountService accountService) {
         this.postRepository = postRepository;
+        this.accountService = accountService;
     }
 
-    public Post save(String title, String body) {
-        return postRepository.save(title, body);
+    public Post save(String title, String body, String username, Board board) {
+
+        Account findAccount = accountService.findByUsername(username);
+
+        return postRepository.save(title, body, findAccount, board);
     }
 
     public Post getById(int postId) {

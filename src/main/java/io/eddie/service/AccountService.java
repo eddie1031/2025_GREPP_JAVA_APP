@@ -2,6 +2,7 @@ package io.eddie.service;
 
 import io.eddie.data.Account;
 import io.eddie.repository.AccountRepository;
+import io.eddie.sys.Request;
 
 public class AccountService {
 
@@ -29,5 +30,36 @@ public class AccountService {
         accountRepository.update(id, password, email);
     }
 
+
+    public Account findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    public boolean signIn(Request request, String username, String password) {
+
+        if ( !isValidRequest(username, password) ) {
+            return false;
+        } else {
+            request.signIn(username);
+        }
+
+        return true;
+    }
+
+
+    public void signOut(Request request) {
+        request.signOut();
+    }
+
+    public boolean isValidRequest(String username, String password) {
+
+        Account findAccount = findByUsername(username);
+
+        if ( findAccount == null ) {
+            return false;
+        }
+
+        return findAccount.getPassword().equals(password);
+    }
 
 }

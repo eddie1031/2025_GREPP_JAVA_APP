@@ -1,5 +1,7 @@
 package io.eddie.repository;
 
+import io.eddie.data.Account;
+import io.eddie.data.Board;
 import io.eddie.data.Post;
 
 import java.time.LocalDate;
@@ -11,8 +13,12 @@ public class PostRepository {
     private int sequence = 0;
     private List<Post> postList = new ArrayList<>();
 
-    public Post save(String title, String body) {
+    public Post save(String title, String body, Account account, Board board) {
         Post newPost = new Post(++sequence, title, body);
+
+        newPost.setAccount(account);
+        newPost.setBoard(board);
+
         postList.add(newPost);
 
         return newPost;

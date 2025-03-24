@@ -9,6 +9,9 @@ public class Post extends BaseEntity {
     private String title;
     private String body;
 
+    private Account account;
+    private Board board;
+
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
@@ -24,14 +27,22 @@ public class Post extends BaseEntity {
     }
 
     public void stdout() {
+
+        String author = "익명";
+
+        if ( this.account != null ) {
+            author = this.account.getUsername();
+        }
+
         System.out.println("게시물 상세 정보 === ");
         System.out.println("게시물 번호 : " + this.getId());
+        System.out.println("게시판 : " + this.board.getBoardName());
+        System.out.println("게시물 작성자 : " + author);
         System.out.println("게시물 제목 : " + this.getTitle());
         System.out.println("게시물 내용 : " + this.getBody());
         System.out.println("게시물 생성일 : " + this.getCreatedAt());
         System.out.println("게시물 수정일 : " + this.getUpdatedAt());
     }
-
 
     public Post(int id, String title, String body) {
         this.id = id;
@@ -59,6 +70,16 @@ public class Post extends BaseEntity {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+        account.getPostList().add(this);
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+        board.getPostList().add(this);
     }
 
     public LocalDate getCreatedAt() {

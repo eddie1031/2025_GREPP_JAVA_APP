@@ -1,6 +1,7 @@
 package io.eddie.repository;
 
 import io.eddie.data.Account;
+import io.eddie.data.AuthType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,17 @@ public class AccountRepository {
     private int sequence = 0;
     private final List<Account> accountList = new ArrayList<>();
 
+    public Account saveAdmin(String username, String password, String name, String email) {
+
+        sequence++;
+        Account admin = new Account(
+                sequence, username, password, name, email, AuthType.ADMIN
+        );
+        accountList.add(admin);
+
+        return admin;
+    }
+
     public Account save(
             String username, String password, String name, String email
     ) {
@@ -19,7 +31,7 @@ public class AccountRepository {
         sequence++;
 
         Account newAccount = new Account(
-                sequence, username, password, name, email
+                sequence, username, password, name, email, AuthType.MEMBER
         );
 
         this.accountList.add(newAccount);
@@ -56,6 +68,21 @@ public class AccountRepository {
 
         findAccount.setUpdatedAt(LocalDate.now());
 
+    }
+
+    public Account findByUsername(String username) {
+        for (Account account : accountList) {
+
+            if ( account == null ) {
+                continue;
+            }
+
+            if ( account.getUsername().equals(username)) {
+                return account;
+            }
+
+        }
+        return null;
     }
 
 }

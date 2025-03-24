@@ -110,7 +110,7 @@ public class PostController implements Controller {
                     System.out.print("body : ");
                     String body = sc.nextLine().trim();
 
-                    Post savedPost = postService.save(title, body);
+                    Post savedPost = postService.save(title, body, request.getLogonUsername(), findBoard);
                     boardService.putPostAtBoard(findBoard, savedPost);
 
                     System.out.println("[201] 게시물 작성을 완료했습니다!");

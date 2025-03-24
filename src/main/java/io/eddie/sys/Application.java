@@ -36,6 +36,13 @@ public class Application {
                 continue;
             }
 
+            Filter filter = new Filter(request);
+
+            if ( !filter.isValidRequest() ) {
+                System.out.println("[403] 권한이 없습니다!");
+                continue;
+            }
+
             Controller controller = getController(request.getControllerCode());
 
             if ( controller != null ) {

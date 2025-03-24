@@ -21,8 +21,26 @@ public class AccountController implements Controller{
 
         switch ( request.getTarget() ) {
             case "signin":
+                System.out.println("form body");
+
+                System.out.print("username: ");
+                String signInUsername = sc.nextLine().trim();
+                System.out.print("password: ");
+                String signInPassword = sc.nextLine().trim();
+
+                boolean result = accountService.signIn(request, signInUsername, signInPassword);
+
+                if ( result ) {
+                    System.out.println("[200] 성공적으로 로그인 되었습니다!");
+                } else {
+                    System.out.println("[400] 잘못된 요청입니다.");
+                }
+
                 break;
             case "signout":
+                accountService.signOut(request);
+                System.out.println("[200] 성공적으로 로그아웃 되었습니다!");
+
                 break;
             case "signup":
                 System.out.println("form body");

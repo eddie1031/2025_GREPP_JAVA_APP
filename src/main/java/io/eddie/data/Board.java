@@ -33,7 +33,6 @@ public class Board extends BaseEntity {
         }
     }
 
-
     public int getId() {
         return id;
     }
